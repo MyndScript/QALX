@@ -1,0 +1,72 @@
+# SLSA-Inspired Go Release Workflow for QALX
+# NOTE: This workflow mimics SLSA Level 3, but is not fully compliant due to GitHub Actions limitations.
+# See: https://github.com/slsa-framework/slsa-github-generator/issues/100
+# Future migration: SLSA-native runners, Sigstore, Google Cloud Build
+
+name: SLSA Go Release
+
+on:
+	push:
+		tags:
+			- 'v*.*.*'
+	workflow_dispatch:
+
+permissions:
+	contents: write
+	id-token: write
+	actions: read
+
+jobs:
+	build:
+		name: Build, Provenance, and Sign
+		runs-on: ubuntu-latest
+		steps:
+			- name: Checkout code
+				uses: actions/checkout@v4
+
+			- name: Set up Go
+				uses: actions/setup-go@v5
+				with:
+					go-version: '1.22'
+
+			- name: Build binaries
+				run: |
+					mkdir -p dist
+					go build -o dist/qalx ./core/qalx.go
+
+			- name: Install slsa-github-generator
+				run: |
+					curl -sL https://github.com/slsa-framework/slsa-github-generator/releases/latest/download/slsa-generator-linux-amd64 -o /usr/local/bin/slsa-generator
+					chmod +x /usr/local/bin/slsa-generator
+
+			- name: Generate provenance
+				run: |
+					/usr/local/bin/slsa-generator provenance --artifact dist/qalx --output dist/qalx.intoto.jsonl
+
+			- name: Install cosign
+				run: |
+					curl -sL https://github.com/sigstore/cosign/releases/latest/download/cosign-linux-amd64 -o /usr/local/bin/cosign
+					chmod +x /usr/local/bin/cosign
+
+			- name: Sign artifact with cosign
+				env:
+					COSIGN_EXPERIMENTAL: 'true'
+				run: |
+					cosign sign-blob --yes dist/qalx --output-signature dist/qalx.sig
+
+			- name: Upload release assets
+				uses: softprops/action-gh-release@v2
+				with:
+					files: |
+						dist/qalx
+						dist/qalx.intoto.jsonl
+						dist/qalx.sig
+
+			- name: Document SLSA limitations
+				run: |
+					echo "This release uses a SLSA-inspired workflow. Full Level 3 compliance requires an external attestation authority and enforced isolation. See workflow file for details." > dist/SLSA-LIMITATIONS.txt
+
+			- name: Upload SLSA limitations
+				uses: softprops/action-gh-release@v2
+				with:
+					files: dist/SLSA-LIMITATIONS.txt
