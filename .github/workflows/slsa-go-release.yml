@@ -31,17 +31,6 @@ jobs:
       - name: List files in workspace (diagnostic)
         run: ls -laR
 
-      - name: Cache Go modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-            go.mod
-            go.sum
-          key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
 
       - name: Build binaries
         run: |
