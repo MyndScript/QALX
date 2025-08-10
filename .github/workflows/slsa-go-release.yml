@@ -39,7 +39,7 @@ jobs:
 
       - name: Install slsa-github-generator
         run: |
-          curl -sL https://github.com/slsa-framework/slsa-github-generator/releases/download/v1.10.0/slsa-generator-linux-amd64 -o /usr/local/bin/slsa-generator
+          curl -sL https://github.com/slsa-framework/slsa-github-generator/releases/download/v2.1.0/slsa-generator-generic-linux-amd64 -o /usr/local/bin/slsa-generator
           chmod +x /usr/local/bin/slsa-generator
 
       - name: Check slsa-generator installation
