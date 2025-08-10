@@ -31,7 +31,10 @@ jobs:
       - name: Restore Go cache
         uses: actions/cache@v4
         with:
-          path: QALX/go.sum
+          path: |
+            ~/.cache/go-build
+            QALX/go.mod
+            QALX/go.sum
           key: ${{ runner.os }}-go-${{ hashFiles('QALX/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
