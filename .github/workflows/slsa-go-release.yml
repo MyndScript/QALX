@@ -37,37 +37,32 @@ jobs:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-            QALX/QALX/go.mod
-            QALX/QALX/go.sum
-          key: ${{ runner.os }}-go-${{ hashFiles('QALX/QALX/go.sum') }}
+            go.mod
+            go.sum
+          key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
 
       - name: Build binaries
-        working-directory: QALX/QALX
         run: |
           mkdir -p dist
           go build -o dist/qalx ./core/qalx.go
 
       - name: Install slsa-github-generator
-        working-directory: QALX/QALX
         run: |
           curl -sL https://github.com/slsa-framework/slsa-github-generator/releases/latest/download/slsa-generator-linux-amd64 -o /usr/local/bin/slsa-generator
           chmod +x /usr/local/bin/slsa-generator
 
       - name: Generate provenance
-        working-directory: QALX/QALX
         run: |
           /usr/local/bin/slsa-generator provenance --artifact dist/qalx --output dist/qalx.intoto.jsonl
 
       - name: Install cosign
-        working-directory: QALX/QALX
         run: |
           curl -sL https://github.com/sigstore/cosign/releases/latest/download/cosign-linux-amd64 -o /usr/local/bin/cosign
           chmod +x /usr/local/bin/cosign
 
       - name: Sign artifact with cosign
-        working-directory: QALX/QALX
         env:
           COSIGN_EXPERIMENTAL: 'true'
         run: |
@@ -77,16 +72,15 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            QALX/QALX/dist/qalx
-            QALX/QALX/dist/qalx.intoto.jsonl
-            QALX/QALX/dist/qalx.sig
+            dist/qalx
+            dist/qalx.intoto.jsonl
+            dist/qalx.sig
 
       - name: Document SLSA limitations
-        working-directory: QALX/QALX
         run: |
           echo "This release uses a SLSA-inspired workflow. Full Level 3 compliance requires an external attestation authority and enforced isolation. See workflow file for details." > dist/SLSA-LIMITATIONS.txt
 
       - name: Upload SLSA limitations
         uses: softprops/action-gh-release@v2
         with:
-          files: QALX/QALX/dist/SLSA-LIMITATIONS.txt
+          files: dist/SLSA-LIMITATIONS.txt
