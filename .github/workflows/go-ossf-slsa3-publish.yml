@@ -31,29 +31,13 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: 1.21
-      - name: Generate random 16-byte value (32-char hex encoded)
-        id: rng
-        uses: slsa-framework/slsa-github-generator/.github/actions/rng@main
-      - name: Detect the builder ref
-        id: detect
-        uses: slsa-framework/slsa-github-generator/.github/actions/detect-workflow-js@main
-      - name: Generate builder binary
-        id: generate
-        uses: slsa-framework/slsa-github-generator/.github/actions/generate-builder@main
-        with:
-          repository: ${{ github.repository }}
-          ref: ${{ github.ref }}
-          go-version: 1.21
-          binary: slsa-builder-go-linux-amd64
-          compile-builder: false
-          directory: internal/builders/go
-          allow-private-repository: false
-      - name: Upload builder
+      - name: Build Go binary
+        run: |
+          go build -o qalx-binary ./core/qalx.go
+      - name: Upload Go binary
         uses: actions/upload-artifact@v4
         with:
-          name: slsa-builder-go-linux-amd64-${{ steps.rng.outputs.random }}
-          path: slsa-builder-go-linux-amd64
-          if-no-files-found: error
-          retention-days: 5
-      # Add more steps as needed from builder_go_slsa3.yml for build, provenance, and upload-assets
+          name: qalx-binary
+          path: qalx-binary
+      # Optional: Add provenance/signing steps here if you want SLSA provenance
 
