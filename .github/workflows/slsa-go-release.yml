@@ -28,6 +28,14 @@ jobs:
         with:
           go-version: '1.22'
 
+      - name: Restore Go cache
+        uses: actions/cache@v4
+        with:
+          path: QALX/go.sum
+          key: ${{ runner.os }}-go-${{ hashFiles('QALX/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
       - name: Build binaries
         working-directory: QALX
         run: |
@@ -35,20 +43,24 @@ jobs:
           go build -o dist/qalx ./core/qalx.go
 
       - name: Install slsa-github-generator
+        working-directory: QALX
         run: |
           curl -sL https://github.com/slsa-framework/slsa-github-generator/releases/latest/download/slsa-generator-linux-amd64 -o /usr/local/bin/slsa-generator
           chmod +x /usr/local/bin/slsa-generator
 
       - name: Generate provenance
+        working-directory: QALX
         run: |
           /usr/local/bin/slsa-generator provenance --artifact dist/qalx --output dist/qalx.intoto.jsonl
 
       - name: Install cosign
+        working-directory: QALX
         run: |
           curl -sL https://github.com/sigstore/cosign/releases/latest/download/cosign-linux-amd64 -o /usr/local/bin/cosign
           chmod +x /usr/local/bin/cosign
 
       - name: Sign artifact with cosign
+        working-directory: QALX
         env:
           COSIGN_EXPERIMENTAL: 'true'
         run: |
@@ -58,15 +70,16 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/qalx
-            dist/qalx.intoto.jsonl
-            dist/qalx.sig
+            QALX/dist/qalx
+            QALX/dist/qalx.intoto.jsonl
+            QALX/dist/qalx.sig
 
       - name: Document SLSA limitations
+        working-directory: QALX
         run: |
           echo "This release uses a SLSA-inspired workflow. Full Level 3 compliance requires an external attestation authority and enforced isolation. See workflow file for details." > dist/SLSA-LIMITATIONS.txt
 
       - name: Upload SLSA limitations
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/SLSA-LIMITATIONS.txt
+          files: QALX/dist/SLSA-LIMITATIONS.txt
