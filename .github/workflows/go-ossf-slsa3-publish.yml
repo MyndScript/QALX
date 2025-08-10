@@ -19,10 +19,41 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: write
       actions: read
-    with:
-      go-version: 1.21
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+      - name: Generate random 16-byte value (32-char hex encoded)
+        id: rng
+        uses: slsa-framework/slsa-github-generator/.github/actions/rng@main
+      - name: Detect the builder ref
+        id: detect
+        uses: slsa-framework/slsa-github-generator/.github/actions/detect-workflow-js@main
+      - name: Generate builder binary
+        id: generate
+        uses: slsa-framework/slsa-github-generator/.github/actions/generate-builder@main
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          go-version: 1.21
+          binary: slsa-builder-go-linux-amd64
+          compile-builder: false
+          directory: internal/builders/go
+          allow-private-repository: false
+      - name: Upload builder
+        uses: actions/upload-artifact@v4
+        with:
+          name: slsa-builder-go-linux-amd64-${{ steps.rng.outputs.random }}
+          path: slsa-builder-go-linux-amd64
+          if-no-files-found: error
+          retention-days: 5
+      # Add more steps as needed from builder_go_slsa3.yml for build, provenance, and upload-assets
 
