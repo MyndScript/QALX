@@ -34,7 +34,7 @@ jobs:
       - name: Build binaries
         run: |
           mkdir -p dist
-          go build -o dist/qalx ./core/qalx.go
+          go build -o dist/qalx ./core
 
       - name: Install slsa-github-generator
         run: |
