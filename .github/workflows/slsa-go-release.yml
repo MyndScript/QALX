@@ -39,7 +39,7 @@ jobs:
 
       - name: Install slsa-github-generator
         run: |
-          curl -sL https://github.com/slsa-framework/slsa-github-generator/releases/latest/download/slsa-generator-linux-amd64 -o /usr/local/bin/slsa-generator
+          curl -sL https://github.com/slsa-framework/slsa-github-generator/releases/download/v1.10.0/slsa-generator-linux-amd64 -o /usr/local/bin/slsa-generator
           chmod +x /usr/local/bin/slsa-generator
 
       - name: Check slsa-generator installation
@@ -55,7 +55,7 @@ jobs:
 
       - name: Install cosign
         run: |
-          curl -sL https://github.com/sigstore/cosign/releases/latest/download/cosign-linux-amd64 -o /usr/local/bin/cosign
+          curl -sL https://github.com/sigstore/cosign/releases/download/v2.2.4/cosign-linux-amd64 -o /usr/local/bin/cosign
           chmod +x /usr/local/bin/cosign
 
       - name: Check cosign installation
