@@ -8,7 +8,18 @@ import (
 	"math"
 )
 
+// EntropyPoolSize is the size of the entropy pool for quantum key generation.
 const EntropyPoolSize = 1024
+
+// Normalization bounds and thresholds
+const (
+	QREMinBound                  = 0.1
+	QREMaxBound                  = 1.0
+	QREDefaultThreshold          = 0.5
+	QRETrustThreshold            = 0.35
+	QRETrustCompositeThreshold   = 0.40
+	QREDefaultCompositeThreshold = 0.5
+)
 
 var entropyPool []byte = initializeEntropyPool()
 
@@ -23,16 +34,16 @@ func initializeEntropyPool() []byte {
 
 // Normalization helper for QRE
 func normalize(x float64, min float64, max float64) float64 {
-	return math.Max(0.1, math.Min(1.0, (x-min)/(max-min)))
+	return math.Max(QREMinBound, math.Min(QREMaxBound, (x-min)/(max-min)))
 }
 
 // Computes Quantum Resistance Entropy (QRE) for future-proof quantum validation (log-sum model)
 func ComputeQRE(metrics QuantumMetrics, glyph LyraGlyph, meshScore float64, resonance float64) float64 {
-	entropySpread := normalize(metrics.EntropyScore*metrics.EntropyQuality, 0.1, 1.0)
-	periodObfuscation := normalize(math.Abs(math.Sin(metrics.PhaseShift*Phi)), 0.1, 1.0)
-	hybridDistortion := normalize(math.Abs(math.Sin(metrics.Phase*Phi)), 0.1, 1.0)
-	glyphModulation := normalize(glyph.Intensity*glyph.EthicsScore*meshScore, 0.1, 1.0)
-	weightedResonance := normalize(1.0/(1.0+resonance), 0.1, 1.0)
+	entropySpread := normalize(metrics.EntropyScore*metrics.EntropyQuality, QREMinBound, QREMaxBound)
+	periodObfuscation := normalize(math.Abs(math.Sin(metrics.PhaseShift*Phi)), QREMinBound, QREMaxBound)
+	hybridDistortion := normalize(math.Abs(math.Sin(metrics.Phase*Phi)), QREMinBound, QREMaxBound)
+	glyphModulation := normalize(glyph.Intensity*glyph.EthicsScore*meshScore, QREMinBound, QREMaxBound)
+	weightedResonance := normalize(1.0/(1.0+resonance), QREMinBound, QREMaxBound)
 	sum := entropySpread + periodObfuscation + hybridDistortion + glyphModulation + weightedResonance
 	return math.Log2(sum + 1)
 }
@@ -92,14 +103,14 @@ func amplifyQuantumKey(entropy []byte, metrics QuantumMetrics, glyph LyraGlyph) 
 
 // QRE-based validation: composite and QRE threshold
 func QALXValidateQuantumSecurity(metrics QuantumMetrics, resonance float64, glyph LyraGlyph, meshScore float64) bool {
-	threshold := 0.5
-	compositeThreshold := 0.5
+	threshold := QREDefaultThreshold
+	compositeThreshold := QREDefaultCompositeThreshold
 	volatilityBonus := 0.0
 	driftComp := 1.0
 	if glyph.Emotion == "trust" {
 		if glyph.Intensity < 0.90 && metrics.Coherence < 0.90 {
-			threshold = 0.35
-			compositeThreshold = 0.40
+			threshold = QRETrustThreshold
+			compositeThreshold = QRETrustCompositeThreshold
 			glyph.EthicsScore += 0.02 * meshScore
 			driftComp = 1.0 + 0.01*math.Abs(float64(glyph.Timestamp%1000))/1000
 			volatilityBonus = 0.02 * math.Abs(math.Sin(float64(glyph.Timestamp%360)*math.Pi/180))

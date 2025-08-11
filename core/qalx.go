@@ -6,10 +6,12 @@ import (
 	"github.com/google/uuid"
 )
 
+// MinCoherence is the minimum allowed coherence for quantum metrics.
 const (
 	MinCoherence = 0.85
 )
 
+// QuantumMetrics holds quantum-related metrics for mesh nodes and cryptography.
 type QuantumMetrics struct {
 	Coherence          float64
 	Phase              float64
@@ -33,6 +35,7 @@ type QuantumMetrics struct {
 	Timestamp          int64
 }
 
+// EncryptionMetrics holds encryption-related metrics for quantum security.
 type EncryptionMetrics struct {
 	KeyStrength        int
 	EntropyQuality     float64
@@ -53,6 +56,7 @@ type EncryptionMetrics struct {
 	Timestamp          int64
 }
 
+// GenerateSignature creates a new UUID signature for a mesh node or metric.
 func GenerateSignature() string {
 	return uuid.New().String()
 }

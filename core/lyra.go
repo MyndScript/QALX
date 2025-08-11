@@ -7,6 +7,7 @@ import (
 
 var Phi float64 = (1 + math.Sqrt(5)) / 2
 
+// LyraGlyph represents an emotional glyph used for modulation in QALX.
 type LyraGlyph struct {
 	Emotion     string
 	Intensity   float64
@@ -14,7 +15,7 @@ type LyraGlyph struct {
 	Timestamp   int64
 }
 
-// Generates dynamic, glyph-driven harmonics
+// GenerateDynamicHarmonics generates dynamic, glyph-driven harmonics.
 func GenerateDynamicHarmonics(glyph LyraGlyph) []float64 {
 	base := Phi * glyph.Intensity
 	t := glyph.Timestamp
@@ -25,12 +26,12 @@ func GenerateDynamicHarmonics(glyph LyraGlyph) []float64 {
 	}
 }
 
-// Generates harmonics for quantum metrics
+// GenerateHarmonics generates harmonics for quantum metrics.
 func GenerateHarmonics() []float64 {
 	return []float64{1, Phi, math.Pow(Phi, 2), math.Pow(Phi, 3)}
 }
 
-// Modulates QuantumMetrics using a LyraGlyph
+// ModulateQuantumMetricsWithLyra modulates QuantumMetrics using a LyraGlyph.
 func ModulateQuantumMetricsWithLyra(metrics *QuantumMetrics, glyph LyraGlyph) {
 	metrics.EntropyQuality *= glyph.Intensity
 	metrics.QuantumResistance += glyph.EthicsScore * 0.01

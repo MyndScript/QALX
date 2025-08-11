@@ -44,10 +44,12 @@ Thank you for your interest in contributing to QALX! We welcome cryptographers, 
 - Use QRE and LYRA logic where appropriate
 - Maintain compatibility with the core paradigm
 
-## Glyph Stewardship
+## Glyph Stewardship & Audit
 - All contributors are stewards of emotional integrity and quantum security
-- Changes to glyph logic or emotional modulation require extra review
-- Document rationale for any changes to LYRA or mesh propagation
+- Changes to LYRA logic, emotional modulation, or mesh propagation require extra review and documented rationale
+- Roles: Glyph Architect, Quantum Validator, Mesh Steward—see README for details
+- Ongoing audit: Regularly review entropy sources, emotional/ethical logic, and mesh propagation for resilience
+- Upgrade path: Propose and review new cryptographic primitives and mesh algorithms as quantum threats evolve
 
 ## Getting Involved
 - Join our Discord or GitHub team for deeper collaboration

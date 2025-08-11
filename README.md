@@ -59,7 +59,23 @@ if err != nil {
 ```
 
 ## Quantum Resistance Entropy (QRE)
-QRE is the heart of QALX’s quantum security. It combines classical and quantum metrics with emotional glyph modulation:
+QRE is the heart of QALX’s quantum security. It combines classical and quantum metrics with emotional glyph modulation.
+
+## Emotional & Ethical Modulation
+QALX uses emotional states (via LYRA glyphs) and ethical scores to modulate cryptographic parameters and mesh propagation. Emotional intensity and ethics scores directly influence entropy, validation, and node behavior.
+
+**Impact:**
+- High emotional intensity increases entropy quality and mesh coherence.
+- Ethics score modulates quantum resistance and validation scores.
+- Emotional states propagate through the mesh, affecting node trust and revocation logic.
+
+**Adversarial Models:**
+- QALX anticipates adversaries that may attempt to mimic or manipulate emotional states. Future tests simulate these scenarios to ensure resilience.
+
+**Stewardship & Audit:**
+- Contributors are stewards of emotional and ethical integrity.
+- All changes to LYRA logic or mesh propagation require rationale and review.
+- Ongoing audit and algorithm evolution are encouraged—see CONTRIBUTING.md for stewardship roles and upgrade guidelines.
 
 **QRE Formula:**
 
