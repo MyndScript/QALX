@@ -1,3 +1,6 @@
+[![SLSA Go releaser](https://github.com/MyndScript/QALX/actions/workflows/go-ossf-slsa3-publish.yml/badge.svg)](https://github.com/MyndScript/QALX/actions/workflows/go-ossf-slsa3-publish.yml)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)[![Go Report Card](https://goreportcard.com/badge/github.com/MyndScript/QALX)](https://goreportcard.com/report/github.com/MyndScript/QALX)
+[![Release](https://img.shields.io/github/v/release/MyndScript/QALX)](https://github.com/MyndScript/QALX/releases)
+
 # QALX
 
 Quantum-secure, emotionally tuned cryptography and mesh logic.
