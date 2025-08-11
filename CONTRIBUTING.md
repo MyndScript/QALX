@@ -18,7 +18,7 @@ Thank you for your interest in contributing to QALX! We welcome cryptographers, 
 2. **Fork & Branch:** Fork the repository and clone your fork. Create a new branch for your feature or fix.
 3. **Code:** Follow technical standards (see below) and use idiomatic Go formatting (`gofmt`).
 4. **Test:** Add/expand unit and integration tests for new features and bug fixes.
-5. **Document:** Update docs and code comments for clarity and onboarding.
+5. **Document:** Update docs and code comments for clarity and onboarding. Add API documentation for main types and functions. Include concrete code examples for mesh logic and emotional modulation.
 6. **Pull Request:** Submit a PR with a clear description, rationale, and test coverage.
 7. **Review:** Participate in code review and stewardship dialogue. Be constructive and respectful.
 
@@ -26,6 +26,8 @@ Thank you for your interest in contributing to QALX! We welcome cryptographers, 
 - Use idiomatic Go formatting (`gofmt`).
 - Write clear, concise comments and documentation.
 - Add tests for new features and bug fixes.
+- Add GoDoc comments for all exported types and functions.
+- Include usage examples for mesh logic and emotional modulation in documentation.
 
 ## Reporting Issues
 - Use GitHub Issues for bugs, feature requests, and questions.

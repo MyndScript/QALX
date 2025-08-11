@@ -23,6 +23,41 @@ QALX is modular:
 - `core/mesh.go`: Mesh node/network logic and validation
 - `core/entropy.go`: Entropy pool, key generation, and QRE security
 
+## API Documentation & Examples
+
+### Mesh Logic Example
+```go
+import "github.com/MyndScript/QALX/core/mesh"
+
+// Create a mesh node
+metrics := QuantumMetrics{Coherence: 0.95, Phase: 0.5, Amplitude: 0.8}
+node := mesh.GenerateMeshNode(metrics)
+
+// Add to mesh network
+net := mesh.NewMeshNetwork()
+net.AddNode(node)
+
+// Validate node
+err := mesh.ValidateMeshNode(node, 1.0, LyraGlyph{Emotion: "trust", Intensity: 1.0, EthicsScore: 1.0, Timestamp: node.Timestamp}, 1.0)
+if err != nil {
+	// handle error
+}
+```
+
+### Emotional Modulation Example
+```go
+glyph := LyraGlyph{Emotion: "joy", Intensity: 0.9, EthicsScore: 0.95, Timestamp: 1234567890}
+metrics := InitializeQuantumMetricsWithGlyph(glyph)
+```
+
+### Pattern Validation Example
+```go
+err := mesh.ValidatePattern("abc12345", []string{"xyz12345", "def67890"})
+if err != nil {
+	// handle error
+}
+```
+
 ## Quantum Resistance Entropy (QRE)
 QRE is the heart of QALX’s quantum security. It combines classical and quantum metrics with emotional glyph modulation:
 
