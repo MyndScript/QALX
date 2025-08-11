@@ -1,5 +1,4 @@
-// entropy.go - Entropy and key generation for QALX
-package coherra
+package entropy
 
 import (
 	"crypto/rand"

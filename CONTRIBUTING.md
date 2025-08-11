@@ -12,14 +12,28 @@ Thank you for your interest in contributing to QALX! We welcome cryptographers, 
 - Foster a respectful, inclusive, and collaborative environment
 - Steward glyph evolution and mesh propagation with care
 
+
 ## How to Contribute
 1. **Discuss:** Start with an issue or join our discussion channels (Discord, GitHub Discussions)
-2. **Fork & Branch:** Fork the repo and create a feature branch
-3. **Code:** Follow technical standards (see below)
-4. **Test:** Add/expand unit and integration tests
-5. **Document:** Update docs and code comments for clarity
-6. **Pull Request:** Submit a PR with a clear description and rationale
-7. **Review:** Participate in code review and stewardship dialogue
+2. **Fork & Branch:** Fork the repository and clone your fork. Create a new branch for your feature or fix.
+3. **Code:** Follow technical standards (see below) and use idiomatic Go formatting (`gofmt`).
+4. **Test:** Add/expand unit and integration tests for new features and bug fixes.
+5. **Document:** Update docs and code comments for clarity and onboarding.
+6. **Pull Request:** Submit a PR with a clear description, rationale, and test coverage.
+7. **Review:** Participate in code review and stewardship dialogue. Be constructive and respectful.
+
+## Code Style
+- Use idiomatic Go formatting (`gofmt`).
+- Write clear, concise comments and documentation.
+- Add tests for new features and bug fixes.
+
+## Reporting Issues
+- Use GitHub Issues for bugs, feature requests, and questions.
+- Provide as much detail as possible, including steps to reproduce and environment info.
+
+## Community
+- Be respectful and constructive in all interactions.
+- See CODE_OF_CONDUCT.md for community guidelines.
 
 ## Technical Standards
 - Write modular, well-documented code
