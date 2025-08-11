@@ -1,0 +1,37 @@
+name: SLSA Go releaser
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Build
+        run: |
+          go build -v ./...
+      - name: Run tests
+        run: |
+          go test -v ./...
+      # Upload only built binaries and test artifacts, not source files
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: qalx-binaries
+          path: |
+            **/*.exe
+            **/*.out
+            **/*.bin
+            **/*.so
+            **/*.dll
+            **/*.dylib
+            **/*.test
+            core/*.go
