@@ -1,5 +1,4 @@
-// qalx_example.go - Example usage of QALX core logic
-package main
+package examples
 
 import (
 	"coherra"
