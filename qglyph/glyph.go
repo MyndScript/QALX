@@ -1,12 +1,29 @@
 package qglyph
 
-// Glyph is a sample exported struct for demonstration.
-type Glyph struct {
+// EmotionalGlyph is a stub type.
+type EmotionalGlyph struct {
 	Emotion   string
 	Intensity float64
 }
 
-// NewGlyph creates a new Glyph.
-func NewGlyph(emotion string, intensity float64) *Glyph {
-	return &Glyph{Emotion: emotion, Intensity: intensity}
+// GlyphValidator is a stub type.
+type GlyphValidator struct{}
+
+// NewGlyphValidator returns a new GlyphValidator.
+func NewGlyphValidator() *GlyphValidator {
+	return &GlyphValidator{}
 }
+
+// GenerateGlyph is a stub function.
+func GenerateGlyph(emotion string, intensity float64) *EmotionalGlyph {
+	return &EmotionalGlyph{Emotion: emotion, Intensity: intensity}
+}
+
+// LYRA is a stub variable.
+var LYRA = "lyra"
+
+// QGlyph is a stub type.
+type QGlyph struct{}
+
+// PAYMENT is a stub variable.
+var PAYMENT = "payment"
